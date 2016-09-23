@@ -8,6 +8,8 @@ end
 class UserWithPresentName
   include ShallowAttributes
   attribute :name, String, present: true
+  attribute :last_name, String
+
 end
 
 class MainUser
@@ -35,6 +37,20 @@ describe ShallowAttributes do
   describe '::attributes' do
     it 'returns class attributes array' do
       MainUser.attributes.must_equal(%i(name last_name full_name age birthday friends_count sizes admin))
+    end
+  end
+
+  describe '::presents_attributes' do
+    describe 'when class have present attributes' do
+      it 'returns array this attributes' do
+        UserWithPresentName.presents_attributes.must_equal([:name])
+      end
+    end
+
+    describe 'when class does not have present attributes' do
+      it 'returns empty array' do
+        MainUser.presents_attributes.must_equal([])
+      end
     end
   end
 

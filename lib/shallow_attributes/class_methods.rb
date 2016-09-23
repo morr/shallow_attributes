@@ -21,6 +21,17 @@ module ShallowAttributes
       end
     end
 
+    # Returns array of all attributes which should be present
+    #
+    # @private
+    #
+    # @return [Array] hash with default values
+    #
+    # @since 0.1.0
+    def presents_attributes
+      @presents_attributes
+    end
+
     # Returns all class attributes.
     #
     #
@@ -66,8 +77,11 @@ module ShallowAttributes
     def attribute(name, type, options = {})
       options[:default] ||= [] if type == Array
 
+      @presents_attributes ||= []
       @default_values ||= {}
+
       @default_values[name] = options.delete(:default)
+      @presents_attributes << name if options.delete(:present)
 
       initialize_setter(name, type, options)
       initialize_getter(name)

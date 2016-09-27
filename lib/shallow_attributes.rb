@@ -7,6 +7,8 @@ require 'shallow_attributes/version'
 #
 # @since 0.1.0
 module ShallowAttributes
+  class NotPresentError < StandardError; end
+
   include InstanceMethods
 
   # Including ShallowAttributes class methods to specific class

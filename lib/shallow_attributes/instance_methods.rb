@@ -31,6 +31,14 @@ module ShallowAttributes
     # @since 0.1.0
     def initialize(attrs = {})
       @attributes = attrs.delete_if { |key, _| !default_values.key?(key) }
+
+      unless self.class.presents_attributes.empty?
+        @attributes.each do |key, _|
+          raise StandardError if self.class.presents_attributes.include?(key)
+        end
+      end
+
+
       define_attributes
       define_default_attributes
     end

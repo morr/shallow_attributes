@@ -27,6 +27,10 @@ end
 describe ShallowAttributes do
   let(:user) { MainUser.new(name: 'Anton', age: 22) }
 
+  it { (true if 0...1).must_equal true }
+
+  it { (true if 1..2).must_equal nil }
+
   describe '::attributes' do
     it 'returns class attributes array' do
       MainUser.attributes.must_equal(%i(name last_name full_name age birthday friends_count sizes admin))
